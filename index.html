@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embrace Bharat Foundation | Empowering Communities</title>
+
+    <!-- PWA: installable app metadata -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1C2841">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Embrace Bharat">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables & Reset */
+        :root {
+            --primary-saffron: #E37032;
+            --primary-green: #2B7A4B;
+            --primary-navy: #1C2841;
+            --bg-light: #FBF9F6;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--primary-navy);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-saffron);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(227, 112, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #c95c24;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background-color: #e8b596;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary-saffron);
+            color: var(--primary-saffron);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-saffron);
+            color: var(--white);
+        }
+
+        .btn-block { width: 100%; text-align: center; }
+
+        /* Top Bar */
+        .top-bar {
+            background: var(--primary-navy);
+            color: var(--white);
+            font-size: 13px;
+            padding: 8px 0;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            max-height: 110px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text h2 {
+            font-size: 20px;
+            margin: 0;
+            line-height: 1.2;
+            color: var(--primary-navy);
+        }
+
+        .logo-text span {
+            font-size: 21px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-saffron);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-navy);
+            display: flex;
+            align-items: center;
+            padding: 6px;
+        }
+
+        .cart-btn svg { width: 24px; height: 24px; }
+
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--primary-saffron);
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .cart-badge.show { transform: scale(1); }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            width: 32px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-navy);
+            margin: 6px 0;
+            transition: 0.3s;
+        }
+
+        .menu-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; }
+        .menu-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+            z-index: 999;
+        }
+
+        .mobile-menu.open { max-height: 420px; }
+
+        .mobile-menu a {
+            display: block;
+            padding: 16px 6%;
+            border-bottom: 1px solid #F0EEE9;
+            font-weight: 500;
+        }
+
+        .mobile-menu a.btn {
+            margin: 16px 6%;
+            width: auto;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(28, 40, 65, 0.7), rgba(28, 40, 65, 0.8)), 
+                        url('https://images.unsplash.com/photo-1542810634-71277d95dcbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 30px;
+        }
+
+        .stat-item h3 {
+            color: var(--primary-saffron);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Vision & Quote Section */
+        .vision-section {
+            padding: 80px 0;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quote-icon {
+            color: var(--primary-saffron);
+            font-size: 40px;
+            margin-bottom: 20px;
+            font-family: 'Merriweather', serif;
+        }
+
+        .quote-box blockquote {
+            font-family: 'Merriweather', serif;
+            font-size: 24px;
+            color: var(--primary-navy);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .quote-box cite {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Pillars of Impact (Programs) */
+        .programs {
+            padding: 90px 0;
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            color: var(--primary-saffron);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 36px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            height: 240px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .card-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .tag-edu { background: #FDEEE6; color: var(--primary-saffron); }
+        .tag-relief { background: #E9F2EC; color: var(--primary-green); }
+        .tag-award { background: #E8EAF0; color: var(--primary-navy); }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* ===== Shop / Store Section ===== */
+        .shop-section {
+            padding: 90px 0;
+            background: var(--white);
+        }
+
+        .shop-intro {
+            max-width: 700px;
+            margin: 0 auto 55px;
+            text-align: center;
+        }
+
+        .shop-intro p {
+            color: var(--text-muted);
+            margin-top: 14px;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .shop-card {
+            background: var(--bg-light);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(28, 40, 65, 0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(28, 40, 65, 0.1);
+        }
+
+        .shop-card-img {
+            height: 210px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .shop-card-body {
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            flex: 1;
+        }
+
+        .shop-card h3 {
+            font-size: 20px;
+        }
+
+        .shop-card .desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .price-row .price {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-navy);
+            font-family: 'Merriweather', serif;
+        }
+
+        .price-row .unit {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .variant-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .variant-chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1.5px solid #ddd;
+            font-size: 13px;
+            cursor: pointer;
+            background: var(--white);
+            transition: 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .variant-chip.active {
+            border-color: var(--primary-saffron);
+            color: var(--primary-saffron);
+            background: #FDEEE6;
+            font-weight: 600;
+        }
+
+        .qty-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
+        }
+
+        .qty-label { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #ddd;
+            border-radius: 30px;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .stepper button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--white);
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--primary-navy);
+            font-weight: 600;
+        }
+
+        .stepper button:hover { background: #f0efe9; }
+
+        .stepper span {
+            width: 26px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .shop-note {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 40px;
+        }
+
+        /* Recognition & Awards Section */
+        .awards-section {
+            padding: 90px 0;
+            background: var(--primary-navy);
+            color: var(--white);
+        }
+
+        .awards-section .section-title {
+            color: var(--white);
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .awards-text p {
+            font-size: 16px;
+            color: #d1d5db;
+            margin-bottom: 25px;
+        }
+
+        .awards-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .awards-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .check-icon {
+            background: var(--primary-saffron);
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .awards-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid rgba(255,255,255,0.1);
+        }
+
+        /* Call to Action */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-green), #1e5936);
+            color: var(--white);
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #9CA3AF;
+            padding: 70px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand .logo-text h2 {
+            color: var(--white);
+        }
+
+        .footer-brand p {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-links h4 {
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-saffron);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+        }
+
+        /* ===== Cart Drawer ===== */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 24, 39, 0.55);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 2000;
+        }
+
+        .overlay.show { opacity: 1; pointer-events: all; }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 400px;
+            max-width: 92vw;
+            background: var(--white);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+            transform: translateX(100%);
+            transition: transform 0.35s ease;
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-drawer.open { transform: translateX(0); }
+
+        .cart-header {
+            padding: 24px 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #F0EEE9;
+        }
+
+        .cart-header h3 { font-size: 20px; }
+
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 22px;
+            line-height: 1;
+            padding: 4px;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 26px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 60px 20px;
+            font-size: 14px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 14px;
+            padding: 18px 0;
+            border-bottom: 1px solid #F0EEE9;
+        }
+
+        .cart-item img {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .cart-item-info { flex: 1; }
+
+        .cart-item-info h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 2px;
+        }
+
+        .cart-item-info .variant-tag {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-item-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .remove-link {
+            background: none;
+            border: none;
+            color: #B54708;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .cart-footer {
+            padding: 22px 26px 26px;
+            border-top: 1px solid #F0EEE9;
+        }
+
+        .subtotal-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-family: 'Merriweather', serif;
+            font-size: 18px;
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .cart-footer .fine-print {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 12px;
+            text-align: center;
+        }
+
+        /* ===== Checkout Modal ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show { opacity: 1; pointer-events: all; }
+
+        .modal-box {
+            background: var(--white);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-box { transform: translateY(0); }
+
+        .modal-box h3 { font-size: 24px; margin-bottom: 6px; }
+        .modal-box .modal-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 24px; }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: var(--text-dark);
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-saffron);
+        }
+
+        .order-summary {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        .order-summary .os-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            color: var(--text-muted);
+        }
+
+        .order-summary .os-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            margin-top: 8px;
+            border-top: 1px solid #e5e1d8;
+            font-weight: 700;
+            color: var(--primary-navy);
+            font-size: 15px;
+        }
+
+        .checkout-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .whatsapp-btn:hover { background-color: #1fb757; }
+
+        .checkout-actions .fine-print {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 6px;
+        }
+
+        .modal-success {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .modal-success .success-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #E9F2EC;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+        }
+
+        /* Install App button */
+        .install-btn {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 1500;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-navy);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(28,40,65,0.35);
+        }
+
+        .install-btn.show { display: flex; }
+        .install-btn svg { width: 18px; height: 18px; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-navy);
+            color: var(--white);
+            padding: 14px 26px;
+            border-radius: 30px;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s ease;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .shop-grid { grid-template-columns: repeat(2, 1fr); }
+            .awards-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.8rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .grid-3 { grid-template-columns: 1fr; }
+            .shop-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            .awards-img { height: 300px; }
+            .cart-drawer { width: 100%; max-width: 100vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        Registered Non-Profit Trust (Govt. of India) | Serving the nation with transparency and dedication
+    </div>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="Logo_Transparent.png" alt="Embrace Bharat Foundation Logo" class="logo-img">
+                <div class="logo-text">
+                    <h2>EMBRACE BHARAT</h2>
+                    <span>Foundation</span>
+                </div>
+            </a>
+            <div class="nav-links">
+                <a href="#mission">Our Mission</a>
+                <a href="#programs">What We Do</a>
+                <a href="#shop">Shop</a>
+                <a href="#awards">Awards & Recognition</a>
+                <a href="#contact">Contact</a>
+                <a href="#donate" class="btn btn-primary">Donate Now</a>
+            </div>
+            <div class="nav-right">
+                <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#mission">Our Mission</a>
+            <a href="#programs">What We Do</a>
+            <a href="#shop">Shop</a>
+            <a href="#awards">Awards & Recognition</a>
+            <a href="#contact">Contact</a>
+            <a href="#donate" class="btn btn-primary">Donate Now</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Empowering the Future of Bharat.</h1>
+                <p>We are dedicated to uplifting underprivileged students through education and technology, while standing firmly beside our communities during times of adversity. Together, we build resilience.</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="#programs" class="btn btn-primary">Our Initiatives</a>
+                    <a href="#shop" class="btn btn-outline" style="color: white; border-color: white;">Visit the Store</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>10,000+</h3>
+                        <p>Students Supported</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Relief Camps Organized</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>500+</h3>
+                        <p>Social Workers Honored</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="vision-section">
+        <div class="container">
+            <div class="quote-box">
+                <div class="quote-icon">❝</div>
+                <blockquote>
+                    "Arise, awake, and stop not till the goal is reached. Real nation-building begins when the last child in the remotest village holds a pen, and when those who serve the destitute are celebrated as our greatest heroes."
+                </blockquote>
+                <cite>— The Core Philosophy of Embrace Bharat Foundation</cite>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="programs">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Core Pillars</span>
+                <h2 class="section-title">Driving Lasting Change</h2>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <img src="Equipping the Youth.jpg" alt="Indian students studying together" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag tag-edu">Education & Tech</span>
+                        <h3>Equipping the Youth</h3>
+                        <p>We provide school supplies, books, study materials, and digital literacy classes to underprivileged students, ensuring they are prepared to build a bright career in the modern technological era.</p>
+                        <a href="#" style="color: var(--primary-saffron); font-weight: 600; font-size: 14px;">Learn more &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Providing relief in rural Indian village" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag tag-relief">Adversity Relief</span>
+                        <h3>Standing by the Vulnerable</h3>
+                        <p>During natural disasters, health crises, or extreme poverty, we step in to provide basic needs such as food, clean water, medical aid, and shelter to the most affected communities.</p>
+                        <a href="#" style="color: var(--primary-green); font-weight: 600; font-size: 14px;">Learn more &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="Honoring the Heroes.jpg" alt="Indian man being awarded and honored" class="card-img">
+                    <div class="card-content">
+                        <span class="card-tag tag-award">Recognition</span>
+                        <h3>Honoring the Heroes</h3>
+                        <p>We actively identify and celebrate grassroots social workers. By awarding them with certificates and medals, we validate their sacrifices and encourage others to join the welfare movement.</p>
+                        <a href="#" style="color: var(--primary-navy); font-weight: 600; font-size: 14px;">Learn more &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SHOP / STORE SECTION ===== -->
+    <section id="shop" class="shop-section">
+        <div class="container">
+            <div class="section-header shop-intro">
+                <span class="section-label">Embrace Bharat Store</span>
+                <h2 class="section-title">Recognise Someone's Contribution</h2>
+                <p>Order an award, medal or complete recognition kit for a teacher, volunteer, employee or community hero. Every purchase also helps fund our education and relief programs.</p>
+            </div>
+
+            <div class="shop-grid" id="shopGrid">
+                <!-- Product cards are rendered here by JavaScript -->
+            </div>
+
+            <p class="shop-note">Prices shown are indicative and exclude shipping. After you submit a request, our team will confirm final pricing, delivery timelines and payment options with you directly.</p>
+        </div>
+    </section>
+
+    <section id="awards" class="awards-section">
+        <div class="container awards-grid">
+            <div class="awards-text">
+                <span class="section-label" style="color: #FBBF24;">Seva Samman Awards</span>
+                <h2 class="section-title">Celebrating the Spirit of Selfless Service</h2>
+                <p>Social work is often a thankless job. At Embrace Bharat Foundation, we believe that recognizing those who dedicate their lives to social welfare is crucial for sustaining a compassionate society.</p>
+                <p>Every year, we host our flagship <strong>Seva Samman Ceremony</strong> to honor unsung heroes from rural and urban communities across the country who actively participate in uplifting their environment.</p>
+                
+                <ul class="awards-list">
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <strong>Certificates of Excellence</strong><br>
+                            <span style="font-size: 13px; color: #9CA3AF;">Awarded to local leaders and educators for exceptional community upliftment.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <strong>The Embrace Bharat Medals</strong><br>
+                            <span style="font-size: 13px; color: #9CA3AF;">Gold and Silver medals conferred upon those who show extraordinary bravery and dedication during disaster relief.</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="check-icon">✓</div>
+                        <div>
+                            <strong>Youth Welfare Scholarships</strong><br>
+                            <span style="font-size: 13px; color: #9CA3AF;">Grants paired with certificates for young adults leading tech-based social innovations.</span>
+                        </div>
+                    </li>
+                </ul>
+                <a href="#shop" class="btn btn-primary" style="margin-top: 10px;">Order an Award</a>
+            </div>
+            <div class="awards-image">
+                <img src="Community members.png" alt="Community members doing community service in India" class="awards-img">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Be the Change You Wish to See</h2>
+            <p>Whether you want to sponsor a child's technical education, help a family in distress, or nominate a local hero for our upcoming awards, your contribution makes a massive difference.</p>
+            <a href="#donate" class="btn btn-primary" style="background: var(--white); color: var(--primary-green); box-shadow: none;">Make a Donation</a>
+            <a href="#volunteer" class="btn btn-outline" style="border-color: var(--white); color: var(--white); margin-left: 15px;">Become a Volunteer</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="Logo_Professional Printing.png" alt="Embrace Bharat Foundation Logo" class="logo-img" style="max-height: 300px;">
+                    <div class="logo-text" style="margin-top: 5px;">
+                        <h2>Embrace Bharat Foundation</h2>
+                    </div>
+                    <p>Working at the intersection of education, skill development, and cultural recognition to build a stronger, fairer Bharat - one person at a time.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#programs">Our Programs</a></li>
+                        <li><a href="#shop">Shop</a></li>
+                        <li><a href="#awards">Awards Gallery</a></li>
+                        <li><a href="#financials">Financial Transparency</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Get Involved</h4>
+                    <ul>
+                        <li><a href="#donate">Donate</a></li>
+                        <li><a href="#volunteer">Volunteer with Us</a></li>
+                        <li><a href="#nominate">Nominate a Hero</a></li>
+                        <li><a href="#partner">Corporate Partnerships</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li><a href="mailto:embracebharatfoundation@gmail.com">embracebharatfoundation@gmail.com</a></li>
+                        <li><a href="#">Delhi, India</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Embrace Bharat Foundation. All Rights Reserved. | Registered under the Indian Trusts Act, 1882.</p>
+                <div style="margin-top: 10px; color: #6b7280;">80G · 12A Certified</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== Cart Drawer & Overlay ===== -->
+    <div class="overlay" id="overlay"></div>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+        <div class="cart-header">
+            <h3>Your Order</h3>
+            <button class="close-btn" id="closeCart" aria-label="Close cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty. Browse the store to add an award, medal or achievement kit.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="subtotal-row">
+                <span>Subtotal</span>
+                <span id="cartSubtotal">₹0</span>
+            </div>
+            <button class="btn btn-primary btn-block" id="checkoutBtn" disabled>Proceed to Checkout</button>
+            <p class="fine-print">This foundation store does not take online payment yet. You'll confirm details and payment (UPI / bank transfer) with our team directly.</p>
+        </div>
+    </aside>
+
+    <!-- ===== Checkout Modal ===== -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-box" id="checkoutModalBox">
+            <div id="checkoutForm">
+                <h3>Complete Your Request</h3>
+                <p class="modal-sub">Share your details and we'll reach out to confirm your order.</p>
+
+                <div class="form-group">
+                    <label for="custName">Full Name *</label>
+                    <input type="text" id="custName" placeholder="e.g. Anjali Sharma">
+                </div>
+                <div class="form-group">
+                    <label for="custPhone">Phone / WhatsApp Number *</label>
+                    <input type="tel" id="custPhone" placeholder="e.g. 98765 43210">
+                </div>
+                <div class="form-group">
+                    <label for="custEmail">Email Address</label>
+                    <input type="email" id="custEmail" placeholder="e.g. anjali@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="custAddress">Delivery Address</label>
+                    <textarea id="custAddress" rows="2" placeholder="Where should we deliver the award?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="custNote">Recipient Name & Reason for Award (optional)</label>
+                    <textarea id="custNote" rows="2" placeholder="e.g. For Mr. Ramesh Gupta, in recognition of 10 years of flood relief work"></textarea>
+                </div>
+
+                <div class="order-summary" id="orderSummary"></div>
+
+                <div class="checkout-actions">
+                    <button class="btn whatsapp-btn" id="sendWhatsApp">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.42a9.87 9.87 0 0 0 4.62 1.18h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.14c-.24.68-1.4 1.31-1.93 1.35-.5.05-1.02.24-3.42-.72-2.88-1.16-4.74-4.06-4.88-4.25-.14-.19-1.17-1.55-1.17-2.96 0-1.4.74-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.15.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.29-.13.57.17.29.75 1.24 1.61 2.01 1.11.99 2.04 1.29 2.33 1.44.29.14.46.12.63-.07.17-.19.72-.83.91-1.12.19-.28.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.21.55.33.07.12.07.7-.17 1.38Z"/></svg>
+                        Send via WhatsApp
+                    </button>
+                    <button class="btn btn-outline" id="sendEmail">Send via Email Instead</button>
+                    <p class="fine-print">We usually respond within 24–48 hours with confirmed pricing and payment options.</p>
+                </div>
+            </div>
+
+            <div id="checkoutSuccess" class="modal-success" style="display:none;">
+                <div class="success-icon">✓</div>
+                <h3>Request Sent!</h3>
+                <p class="modal-sub" id="successMessage">Thank you. Our team will reach out shortly to confirm your order.</p>
+                <button class="btn btn-primary btn-block" id="closeSuccess">Continue Browsing</button>
+            </div>
+
+            <button class="close-btn" id="closeCheckout" style="position:absolute; top:20px; right:20px;" aria-label="Close">&times;</button>
+        </div>
+    </div>
+
+    <button class="install-btn" id="installBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        Install App
+    </button>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============ CONFIG ============
+        // TODO: replace with the Foundation's real WhatsApp Business number, in country-code format, no + or spaces.
+        const FOUNDATION_WHATSAPP = "91XXXXXXXXXX";
+        const FOUNDATION_EMAIL = "embracebharatfoundation@gmail.com";
+
+        // ============ PRODUCT DATA ============
+        // Edit names, descriptions and prices here to match your final pricing.
+        const PRODUCTS = [
+            {
+                id: "pratibha",
+                name: "Pratibha Samman Award",
+                tag: "Individual Recognition",
+                img: "https://images.unsplash.com/photo-1648538798358-9ed1ab74ece4?auto=format&fit=crop&w=800&q=80",
+                desc: "A handcrafted trophy with an engraved citation, presented to individuals for outstanding talent and achievement.",
+                price: 2499,
+                variants: null
+            },
+            {
+                id: "medal",
+                name: "Medals for Distinguished Work",
+                tag: "Community Honour",
+                img: "https://images.unsplash.com/photo-1706374503312-7a4a4c030d2d?auto=format&fit=crop&w=800&q=80",
+                desc: "Gold, Silver or Bronze medals conferred on social workers and volunteers for dedicated service to the community.",
+                price: null,
+                variants: [
+                    { key: "gold", label: "Gold", price: 1999 },
+                    { key: "silver", label: "Silver", price: 1499 },
+                    { key: "bronze", label: "Bronze", price: 999 }
+                ]
+            },
+            {
+                id: "kit",
+                name: "Achievement Kit",
+                tag: "Complete Recognition Set",
+                img: "https://images.unsplash.com/photo-1668463919545-73f4bb38e1d3?auto=format&fit=crop&w=800&q=80",
+                desc: "Our complete honour set: certificate, medal, a personalised citation letter and a presentation box.",
+                price: 3999,
+                variants: null
+            }
+        ];
+
+        // ============ STATE ============
+        // Cart lives in memory only for this browsing session (resets on page reload).
+        let cart = []; // { productId, variantKey, qty }
+        const selectedVariant = {}; // productId -> variantKey, for products with variants
+        const selectedQty = {}; // productId -> current stepper quantity before adding to cart
+
+        // ============ HELPERS ============
+        function formatINR(n) {
+            return "₹" + n.toLocaleString("en-IN");
+        }
+
+        function getProduct(id) {
+            return PRODUCTS.find(p => p.id === id);
+        }
+
+        function getUnitPrice(product, variantKey) {
+            if (product.variants) {
+                const v = product.variants.find(v => v.key === variantKey);
+                return v ? v.price : product.variants[0].price;
+            }
+            return product.price;
+        }
+
+        function getVariantLabel(product, variantKey) {
+            if (!product.variants) return null;
+            const v = product.variants.find(v => v.key === variantKey);
+            return v ? v.label : product.variants[0].label;
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            clearTimeout(showToast._t);
+            showToast._t = setTimeout(() => toast.classList.remove("show"), 2600);
+        }
+
+        // ============ RENDER PRODUCT GRID ============
+        function renderShopGrid() {
+            const grid = document.getElementById("shopGrid");
+            grid.innerHTML = PRODUCTS.map(p => {
+                selectedQty[p.id] = selectedQty[p.id] || 1;
+                if (p.variants) {
+                    selectedVariant[p.id] = selectedVariant[p.id] || p.variants[0].key;
+                }
+                const unitPrice = getUnitPrice(p, selectedVariant[p.id]);
+
+                const variantHtml = p.variants ? `
+                    <div class="variant-row" data-product="${p.id}">
+                        ${p.variants.map(v => `
+                            <button type="button" class="variant-chip ${v.key === selectedVariant[p.id] ? "active" : ""}" data-variant="${v.key}">${v.label}</button>
+                        `).join("")}
+                    </div>
+                ` : "";
+
+                return `
+                    <div class="shop-card" data-product-card="${p.id}">
+                        <img src="${p.img}" alt="${p.name}" class="shop-card-img">
+                        <div class="shop-card-body">
+                            <span class="card-tag tag-award">${p.tag}</span>
+                            <h3>${p.name}</h3>
+                            <p class="desc">${p.desc}</p>
+                            ${variantHtml}
+                            <div class="price-row">
+                                <span class="price" id="price-${p.id}">${formatINR(unitPrice)}</span>
+                                <span class="unit">per piece, excl. shipping</span>
+                            </div>
+                            <div class="qty-row">
+                                <span class="qty-label">Quantity</span>
+                                <div class="stepper" data-product="${p.id}">
+                                    <button type="button" class="qty-minus">−</button>
+                                    <span class="qty-value">${selectedQty[p.id]}</span>
+                                    <button type="button" class="qty-plus">+</button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block add-cart-btn" data-add="${p.id}">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+
+            attachShopGridEvents();
+        }
+
+        function attachShopGridEvents() {
+            // Variant selection
+            document.querySelectorAll(".variant-row").forEach(row => {
+                row.addEventListener("click", e => {
+                    const chip = e.target.closest(".variant-chip");
+                    if (!chip) return;
+                    const productId = row.dataset.product;
+                    selectedVariant[productId] = chip.dataset.variant;
+                    row.querySelectorAll(".variant-chip").forEach(c => c.classList.remove("active"));
+                    chip.classList.add("active");
+                    const product = getProduct(productId);
+                    document.getElementById("price-" + productId).textContent = formatINR(getUnitPrice(product, selectedVariant[productId]));
+                });
+            });
+
+            // Quantity steppers
+            document.querySelectorAll(".stepper").forEach(stepper => {
+                const productId = stepper.dataset.product;
+                stepper.querySelector(".qty-minus").addEventListener("click", () => {
+                    selectedQty[productId] = Math.max(1, (selectedQty[productId] || 1) - 1);
+                    stepper.querySelector(".qty-value").textContent = selectedQty[productId];
+                });
+                stepper.querySelector(".qty-plus").addEventListener("click", () => {
+                    selectedQty[productId] = Math.min(99, (selectedQty[productId] || 1) + 1);
+                    stepper.querySelector(".qty-value").textContent = selectedQty[productId];
+                });
+            });
+
+            // Add to cart
+            document.querySelectorAll("[data-add]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const productId = btn.dataset.add;
+                    const variantKey = selectedVariant[productId] || null;
+                    const qty = selectedQty[productId] || 1;
+                    addToCart(productId, variantKey, qty);
+                    selectedQty[productId] = 1;
+                    const stepperEl = document.querySelector('.stepper[data-product="' + productId + '"] .qty-value');
+                    if (stepperEl) stepperEl.textContent = 1;
+                    showToast("Added to cart · " + getProduct(productId).name);
+                });
+            });
+        }
+
+        // ============ CART LOGIC ============
+        function addToCart(productId, variantKey, qty) {
+            const existing = cart.find(item => item.productId === productId && item.variantKey === variantKey);
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push({ productId, variantKey, qty });
+            }
+            renderCart();
+        }
+
+        function updateCartQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            renderCart();
+        }
+
+        function removeCartItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function cartTotal() {
+            return cart.reduce((sum, item) => {
+                const product = getProduct(item.productId);
+                return sum + getUnitPrice(product, item.variantKey) * item.qty;
+            }, 0);
+        }
+
+        function cartCount() {
+            return cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        function renderCart() {
+            const itemsEl = document.getElementById("cartItems");
+            const subtotalEl = document.getElementById("cartSubtotal");
+            const badgeEl = document.getElementById("cartBadge");
+            const checkoutBtn = document.getElementById("checkoutBtn");
+
+            if (cart.length === 0) {
+                itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty. Browse the store to add an award, medal or achievement kit.</div>';
+                checkoutBtn.disabled = true;
+            } else {
+                itemsEl.innerHTML = cart.map((item, index) => {
+                    const product = getProduct(item.productId);
+                    const unitPrice = getUnitPrice(product, item.variantKey);
+                    const variantLabel = getVariantLabel(product, item.variantKey);
+                    return `
+                        <div class="cart-item">
+                            <img src="${product.img}" alt="${product.name}">
+                            <div class="cart-item-info">
+                                <h4>${product.name}</h4>
+                                ${variantLabel ? `<div class="variant-tag">${variantLabel}</div>` : ""}
+                                <div class="cart-item-controls">
+                                    <div class="stepper">
+                                        <button type="button" class="cart-qty-minus" data-index="${index}">−</button>
+                                        <span class="qty-value">${item.qty}</span>
+                                        <button type="button" class="cart-qty-plus" data-index="${index}">+</button>
+                                    </div>
+                                    <span class="cart-item-price">${formatINR(unitPrice * item.qty)}</span>
+                                </div>
+                                <button type="button" class="remove-link" data-remove="${index}">Remove</button>
+                            </div>
+                        </div>
+                    `;
+                }).join("");
+                checkoutBtn.disabled = false;
+
+                itemsEl.querySelectorAll(".cart-qty-minus").forEach(b => b.addEventListener("click", () => updateCartQty(parseInt(b.dataset.index), -1)));
+                itemsEl.querySelectorAll(".cart-qty-plus").forEach(b => b.addEventListener("click", () => updateCartQty(parseInt(b.dataset.index), 1)));
+                itemsEl.querySelectorAll("[data-remove]").forEach(b => b.addEventListener("click", () => removeCartItem(parseInt(b.dataset.remove))));
+            }
+
+            subtotalEl.textContent = formatINR(cartTotal());
+            const count = cartCount();
+            badgeEl.textContent = count;
+            badgeEl.classList.toggle("show", count > 0);
+        }
+
+        // ============ CART DRAWER OPEN/CLOSE ============
+        const overlay = document.getElementById("overlay");
+        const cartDrawer = document.getElementById("cartDrawer");
+        const checkoutModal = document.getElementById("checkoutModal");
+
+        function openCart() {
+            cartDrawer.classList.add("open");
+            overlay.classList.add("show");
+        }
+
+        function closeCart() {
+            cartDrawer.classList.remove("open");
+            if (!checkoutModal.classList.contains("show")) overlay.classList.remove("show");
+        }
+
+        document.getElementById("cartBtn").addEventListener("click", openCart);
+        document.getElementById("closeCart").addEventListener("click", closeCart);
+        overlay.addEventListener("click", () => {
+            closeCart();
+            closeCheckout();
+        });
+
+        // ============ CHECKOUT MODAL ============
+        function renderOrderSummary() {
+            const summaryEl = document.getElementById("orderSummary");
+            const rows = cart.map(item => {
+                const product = getProduct(item.productId);
+                const unitPrice = getUnitPrice(product, item.variantKey);
+                const variantLabel = getVariantLabel(product, item.variantKey);
+                const label = product.name + (variantLabel ? " (" + variantLabel + ")" : "") + " × " + item.qty;
+                return `<div class="os-row"><span>${label}</span><span>${formatINR(unitPrice * item.qty)}</span></div>`;
+            }).join("");
+            summaryEl.innerHTML = rows + `<div class="os-total"><span>Estimated Total</span><span>${formatINR(cartTotal())}</span></div>`;
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) return;
+            document.getElementById("checkoutForm").style.display = "block";
+            document.getElementById("checkoutSuccess").style.display = "none";
+            renderOrderSummary();
+            checkoutModal.classList.add("show");
+            overlay.classList.add("show");
+        }
+
+        function closeCheckout() {
+            checkoutModal.classList.remove("show");
+            if (!cartDrawer.classList.contains("open")) overlay.classList.remove("show");
+        }
+
+        document.getElementById("checkoutBtn").addEventListener("click", () => {
+            closeCart();
+            openCheckout();
+        });
+        document.getElementById("closeCheckout").addEventListener("click", closeCheckout);
+        document.getElementById("closeSuccess").addEventListener("click", closeCheckout);
+
+        // ============ BUILD ORDER MESSAGE ============
+        function buildOrderMessage() {
+            const name = document.getElementById("custName").value.trim();
+            const phone = document.getElementById("custPhone").value.trim();
+            const email = document.getElementById("custEmail").value.trim();
+            const address = document.getElementById("custAddress").value.trim();
+            const note = document.getElementById("custNote").value.trim();
+
+            let msg = "New Order Enquiry — Embrace Bharat Foundation Store\n\n";
+            msg += "Name: " + name + "\n";
+            msg += "Phone: " + phone + "\n";
+            if (email) msg += "Email: " + email + "\n";
+            if (address) msg += "Delivery Address: " + address + "\n";
+            msg += "\nItems:\n";
+            cart.forEach(item => {
+                const product = getProduct(item.productId);
+                const unitPrice = getUnitPrice(product, item.variantKey);
+                const variantLabel = getVariantLabel(product, item.variantKey);
+                msg += "- " + product.name + (variantLabel ? " (" + variantLabel + ")" : "") + " x" + item.qty + " — " + formatINR(unitPrice * item.qty) + "\n";
+            });
+            msg += "\nEstimated Total: " + formatINR(cartTotal()) + "\n";
+            if (note) msg += "\nRecipient / Award Details: " + note + "\n";
+            return { name, phone, email, msg };
+        }
+
+        function validateForm() {
+            const name = document.getElementById("custName").value.trim();
+            const phone = document.getElementById("custPhone").value.trim();
+            if (!name || !phone) {
+                showToast("Please enter your name and phone number");
+                return false;
+            }
+            return true;
+        }
+
+        function showSuccess(message) {
+            document.getElementById("checkoutForm").style.display = "none";
+            document.getElementById("successMessage").textContent = message;
+            document.getElementById("checkoutSuccess").style.display = "block";
+            cart = [];
+            renderCart();
+        }
+
+        document.getElementById("sendWhatsApp").addEventListener("click", () => {
+            if (!validateForm()) return;
+            const { msg } = buildOrderMessage();
+            const url = "https://wa.me/" + FOUNDATION_WHATSAPP + "?text=" + encodeURIComponent(msg);
+            window.open(url, "_blank");
+            showSuccess("We've opened WhatsApp with your order details. Send the message and our team will confirm everything shortly.");
+        });
+
+        document.getElementById("sendEmail").addEventListener("click", () => {
+            if (!validateForm()) return;
+            const { msg } = buildOrderMessage();
+            const subject = "Order Enquiry — Embrace Bharat Foundation Store";
+            const url = "mailto:" + FOUNDATION_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(msg);
+            window.location.href = url;
+            showSuccess("We've opened your email app with your order details. Send the email and our team will confirm everything shortly.");
+        });
+
+        // ============ MOBILE MENU ============
+        const menuToggle = document.getElementById("menuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+        menuToggle.addEventListener("click", () => {
+            menuToggle.classList.toggle("open");
+            mobileMenu.classList.toggle("open");
+        });
+        mobileMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
+            menuToggle.classList.remove("open");
+            mobileMenu.classList.remove("open");
+        }));
+
+        // ============ PWA: SERVICE WORKER + INSTALL PROMPT ============
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("service-worker.js").catch(() => {
+                    // Registration can fail when previewed from file:// or a sandboxed
+                    // preview frame — this is expected there and safe to ignore.
+                });
+            });
+        }
+
+        let deferredInstallPrompt = null;
+        const installBtn = document.getElementById("installBtn");
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            deferredInstallPrompt = event;
+            installBtn.classList.add("show");
+        });
+
+        installBtn.addEventListener("click", async () => {
+            if (!deferredInstallPrompt) return;
+            deferredInstallPrompt.prompt();
+            const { outcome } = await deferredInstallPrompt.userChoice;
+            if (outcome === "accepted") {
+                showToast("Installing Embrace Bharat Foundation…");
+            }
+            deferredInstallPrompt = null;
+            installBtn.classList.remove("show");
+        });
+
+        window.addEventListener("appinstalled", () => {
+            installBtn.classList.remove("show");
+            showToast("App installed! Find it on your home screen.");
+        });
+
+        // ============ INIT ============
+        renderShopGrid();
+        renderCart();
+    </script>
+
+</body>
+</html>

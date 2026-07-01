@@ -1,0 +1,32 @@
+{
+  "name": "Embrace Bharat Foundation",
+  "short_name": "Embrace Bharat",
+  "description": "Learn about Embrace Bharat Foundation's education and relief work, and order Pratibha Samman Awards, Medals and Achievement Kits.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FBF9F6",
+  "theme_color": "#1C2841",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
