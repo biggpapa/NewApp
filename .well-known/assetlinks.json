@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.biggpapa.twa",
+        "sha256_cert_fingerprints": ["F6:12:8F:74:45:77:FC:39:C9:7B:64:B8:B0:58:EA:79:B8:00:A6:A4:2C:74:2A:C8:8D:72:6D:68:AA:87:BA:55"]
+      }
+    }]
